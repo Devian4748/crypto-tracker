@@ -12,16 +12,24 @@ const Container = styled.div`
 const PriceWrapper = styled.div`
   width: 100%;
   display: flex;
+  justify-content: center;
   align-items: center;
-  gap: 3rem;
+  gap: 1rem;
+
+  @media (max-width: 480px) {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 `;
 
 const MainPrice = styled.div`
   display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  gap: 1rem;
-  font-size: 1.3rem;
+  gap: 0.2rem;
+  font-size: 1.7rem;
   font-weight: 500;
 
   span {
@@ -32,6 +40,12 @@ const MainPrice = styled.div`
       color: ${props => props.theme.accentColor};
     }
   }
+
+  @media (max-width: 480px) {
+    font-size: 2rem;
+    gap: 1.5rem;
+    flex-direction: row;
+  }
 `;
 
 const SubPrice = styled.div`
@@ -39,8 +53,8 @@ const SubPrice = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  gap: 1rem;
-  font-size: 1.1rem;
+  gap: 0.2rem;
+  font-size: 1.5rem;
   font-weight: 500;
 
   span {
@@ -49,6 +63,17 @@ const SubPrice = styled.div`
     }
     &:nth-child(2) {
       color: ${props => props.theme.accentColor};
+    }
+  }
+
+  @media (max-width: 480px) {
+    font-size: 2rem;
+    gap: 1.5rem;
+    flex-direction: row;
+    width: 100%;
+    span {
+      width: 50%;
+      text-align: right;
     }
   }
 `;

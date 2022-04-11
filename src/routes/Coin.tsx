@@ -55,7 +55,6 @@ const OverviewItem = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 33%;
   span:first-child {
     font-size: 2rem;
     font-weight: 500;
@@ -175,8 +174,8 @@ export interface IPriceData {
 const Coin = () => {
   const { coinId } = useParams<RouterParams>();
   const { state } = useLocation<RouterState>();
-  const priceMatch = useRouteMatch('/:coinId/price');
-  const chartMatch = useRouteMatch('/:coinId/chart');
+  const priceMatch = useRouteMatch('/crypto-tracker/:coinId/price');
+  const chartMatch = useRouteMatch('/crypto-tracker/:coinId/chart');
   const history = useHistory();
 
   const { isLoading: infoLoading, data: infoData } = useQuery<IInfoData>(
@@ -224,7 +223,7 @@ const Coin = () => {
             </OverviewItem>
             <OverviewItem>
               <span>Symbol:</span>
-              <span>${infoData?.symbol}</span>
+              <span>{infoData?.symbol}</span>
             </OverviewItem>
             <OverviewItem>
               <span>Price:</span>
