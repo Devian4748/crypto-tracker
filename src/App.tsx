@@ -11,11 +11,11 @@ const App = () => {
   const onToggleModeHandler = () => {
     setDarkMode(prevState => !prevState);
   };
-
   return (
     <ThemeProvider theme={isDarkMode ? DarkTheme : LightTheme}>
       <AdaptingFont />
       <GlobalStyle />
+      <ReactQueryDevtools />
       <Router isDarkMode={isDarkMode} onToggle={onToggleModeHandler} />
     </ThemeProvider>
   );
