@@ -18,7 +18,7 @@ interface IHistorical {
 }
 
 function Chart({ coinId }: ChartProps) {
-  const { isLoading, data } = useQuery<IHistorical[]>(
+  const { isLoading, data } = useQuery<IHistorical[] & { error: string }>(
     ['ohlcv', coinId],
     () => fetchCoinHistory(coinId),
     {
@@ -26,6 +26,9 @@ function Chart({ coinId }: ChartProps) {
     }
   );
 
+  if (data && data.error) {
+    return <p>{data.error}</p>;
+  }
   return (
     <div>
       {isLoading ? (
@@ -37,15 +40,17 @@ function Chart({ coinId }: ChartProps) {
             {
               name: 'Price',
               data:
-                data?.map(price => ({
-                  x: new Date(price.time_open),
-                  y: [
-                    price.open.toFixed(2),
-                    price.high.toFixed(2),
-                    price.low.toFixed(2),
-                    price.close.toFixed(2),
-                  ],
-                })) ?? [],
+                data && data.length > 0
+                  ? data?.map(price => ({
+                      x: new Date(price.time_open),
+                      y: [
+                        price.open.toFixed(2),
+                        price.high.toFixed(2),
+                        price.low.toFixed(2),
+                        price.close.toFixed(2),
+                      ],
+                    })) ?? []
+                  : [],
             },
           ]}
           options={{
@@ -73,7 +78,10 @@ function Chart({ coinId }: ChartProps) {
               axisTicks: { show: false },
               labels: { show: false },
               type: 'datetime',
-              categories: data?.map(price => price.time_close),
+              categories:
+                data && data?.length > 0
+                  ? data?.map(price => price.time_close)
+                  : '',
             },
             fill: {
               type: 'gradient',
